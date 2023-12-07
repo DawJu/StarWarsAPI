@@ -1,8 +1,11 @@
 import graphene
+import StarWars.schema
+
+class Query(StarWars.schema.Query, graphene.ObjectType):
+    pass
+
+class Mutation(StarWars.schema.Mutation, graphene.ObjectType):
+    pass
 
 
-class Query(graphene.ObjectType):
-    hello = graphene.String(default_value='Hi!')
-
-
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=Query, mutation=Mutation)
