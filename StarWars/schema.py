@@ -1,15 +1,15 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter.fields import DjangoFilterConnectionField
+
 from .models import Character
 
 
 class CharacterNode(DjangoObjectType):
-
     class Meta:
         model = Character
-        filter_fields = ['character_id', 'name', 'species', 'gender', 'age']
-        interfaces = (graphene.relay.Node, )
+        filter_fields = ["character_id", "name", "species", "gender", "age"]
+        interfaces = (graphene.relay.Node,)
 
 
 class Query(graphene.ObjectType):
@@ -41,13 +41,13 @@ class UpdateCharacter(graphene.Mutation):
         gender = graphene.String()
         age = graphene.Int()
 
-    def mutate(self, info, character_id, name='', species='', gender='', age=-1):
+    def mutate(self, info, character_id, name="", species="", gender="", age=-1):
         character = Character.objects.get(character_id=character_id)
-        if name != '':
+        if name != "":
             character.name = name
-        if species != '':
+        if species != "":
             character.species = species
-        if gender != '':
+        if gender != "":
             character.gender = gender
         if age != -1:
             character.age = age
@@ -56,7 +56,6 @@ class UpdateCharacter(graphene.Mutation):
 
 
 class DeleteCharacter(graphene.Mutation):
-    # ok = graphene.Boolean()
     character_id = graphene.ID()
 
     class Arguments:
