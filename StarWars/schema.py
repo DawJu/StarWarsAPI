@@ -5,25 +5,15 @@ from .models import Character
 
 
 class CharacterNode(DjangoObjectType):
-    # id = graphene.ID(source='pk', required=True)
 
     class Meta:
         model = Character
-        filter_fields = {
-            'character_id': ['exact'],
-            'name': ['exact', 'icontains', 'istartswith'],
-            'species': ['exact', 'icontains'],
-            'gender': ['exact'],
-            'age': ['exact']
-        }
+        filter_fields = ['character_id', 'name', 'species', 'gender', 'age']
         interfaces = (graphene.relay.Node, )
 
 
 class Query(graphene.ObjectType):
-    characters = graphene.List(CharacterNode)
-
-    def resolve_characters(self, info):
-        return Character.objects.all()
+    characters = DjangoFilterConnectionField(CharacterNode)
 
 
 class CreateCharacter(graphene.Mutation):
