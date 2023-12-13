@@ -20,10 +20,10 @@ class CreateCharacter(graphene.Mutation):
     character = graphene.Field(CharacterNode)
 
     class Arguments:
-        name = graphene.String()
-        species = graphene.String()
-        gender = graphene.String()
-        age = graphene.Int()
+        name = graphene.String(default_value="Foo")
+        species = graphene.String(default_value="Human")
+        gender = graphene.String(default_value="Male")
+        age = graphene.Int(default_value=32)
 
     def mutate(self, info, name, species, gender, age):
         character = Character(name=name, species=species, gender=gender, age=age)
