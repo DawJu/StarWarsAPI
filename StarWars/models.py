@@ -6,7 +6,7 @@ from django.db import models
 class Character(models.Model):
     character_id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50, verbose_name="Name")
-    species = models.TextField(max_length=15, verbose_name="Species")
+    species = models.TextField(max_length=15, null=True, verbose_name="Species")
 
     class Gender(models.TextChoices):
         Male = "Male"

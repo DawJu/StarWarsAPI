@@ -1,13 +1,13 @@
 import graphene
 
-import StarWars.schema
+import StarWars.GraphQL.schema
 
 
-class Query(StarWars.schema.Query, graphene.ObjectType):
+class Query(StarWars.GraphQL.schema.Query, graphene.ObjectType):
     pass
 
 
-class Mutation(StarWars.schema.Mutation, graphene.ObjectType):
+class Mutation(StarWars.GraphQL.schema.Mutation, graphene.ObjectType):
     pass
 
 
