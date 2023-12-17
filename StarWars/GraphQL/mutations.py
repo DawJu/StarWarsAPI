@@ -1,4 +1,5 @@
 import graphene
+from graphql_relay.node.node import from_global_id
 
 from StarWars.GraphQL.model_nodes import CharacterNode
 from StarWars.services import CharacterService
@@ -22,26 +23,26 @@ class UpdateCharacter(graphene.Mutation):
     character = graphene.Field(CharacterNode)
 
     class Arguments:
-        character_id = graphene.ID(required=True)
+        id = graphene.ID(required=True)
         name = graphene.String()
         species = graphene.String()
         gender = graphene.String()
         age = graphene.Int()
 
-    def mutate(self, info, character_id, **kwargs):
-        character = CharacterService().update_character(character_id, **kwargs)
+    def mutate(self, info, id, **kwargs):
+        character = CharacterService().update_character(from_global_id(id)[1], **kwargs)
         return UpdateCharacter(character=character)
 
 
 class DeleteCharacter(graphene.Mutation):
-    character_id = graphene.ID()
+    id = graphene.ID()
 
     class Arguments:
-        character_id = graphene.ID()
+        id = graphene.ID(required=True)
 
-    def mutate(self, info, character_id):
-        character_id = CharacterService().delete_character(character_id)
-        return DeleteCharacter(character_id=character_id)
+    def mutate(self, info, id):
+        CharacterService().delete_character(from_global_id(id)[1])
+        return DeleteCharacter(id=id)
 
 
 class Mutation(graphene.ObjectType):

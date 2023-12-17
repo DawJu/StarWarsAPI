@@ -9,8 +9,8 @@ class CharacterService:
         return character
 
     @staticmethod
-    def update_character(character_id, **kwargs):
-        character = Character.objects.get(character_id=character_id)
+    def update_character(id, **kwargs):
+        character = Character.objects.get(pk=id)
         if 'name' in kwargs:
             character.name = kwargs['name']
         if 'species' in kwargs:
@@ -23,7 +23,6 @@ class CharacterService:
         return character
 
     @staticmethod
-    def delete_character(character_id):
-        character = Character.objects.get(character_id=character_id)
+    def delete_character(id):
+        character = Character.objects.get(pk=id)
         character.delete()
-        return character_id
