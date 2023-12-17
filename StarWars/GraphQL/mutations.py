@@ -1,7 +1,7 @@
 import graphene
 
 from StarWars.GraphQL.model_nodes import CharacterNode
-from StarWars.GraphQL.services import CharacterService
+from StarWars.services import CharacterService
 
 
 class CreateCharacter(graphene.Mutation):
