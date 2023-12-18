@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from StarWars.models import Character, Movie, CharacterMovie
+from StarWars.models import Character, CharacterMovie, Movie
 
 
 class CharacterNode(DjangoObjectType):

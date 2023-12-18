@@ -1,6 +1,6 @@
 from graphql_relay.node.node import from_global_id
 
-from StarWars.models import Character, Movie, CharacterMovie
+from StarWars.models import Character, CharacterMovie, Movie
 
 
 class CharacterService:

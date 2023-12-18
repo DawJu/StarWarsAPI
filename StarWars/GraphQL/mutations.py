@@ -1,8 +1,10 @@
 import graphene
 from graphql_relay.node.node import from_global_id
 
-from StarWars.GraphQL.model_nodes import CharacterNode, MovieNode, CharacterMovieNode
-from StarWars.services import CharacterService, MovieService, CharacterMovieService
+from StarWars.GraphQL.model_nodes import (CharacterMovieNode, CharacterNode,
+                                          MovieNode)
+from StarWars.services import (CharacterMovieService, CharacterService,
+                               MovieService)
 
 
 class CreateCharacter(graphene.Mutation):

@@ -2,8 +2,9 @@ import django_filters
 import graphene
 from graphene_django.filter.fields import DjangoFilterConnectionField
 
-from StarWars.GraphQL.model_nodes import CharacterNode, MovieNode, CharacterMovieNode
 import StarWars.GraphQL.mutations
+from StarWars.GraphQL.model_nodes import (CharacterMovieNode, CharacterNode,
+                                          MovieNode)
 from StarWars.models import CharacterMovie
 
 
