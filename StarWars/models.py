@@ -22,7 +22,7 @@ class Character(models.Model):
         verbose_name = "Character"
         verbose_name_plural = "Characters"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name} ({self.character_id})"
 
 
@@ -36,7 +36,7 @@ class Movie(models.Model):
         verbose_name = "Movie"
         verbose_name_plural = "Movies"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Episode {self.episode} - {self.name} ({self.release_year})"
 
 
@@ -61,7 +61,7 @@ class CharacterMovie(models.Model):
         verbose_name = "Character + Movie"
         verbose_name_plural = "Characters + Movies"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             f"{self.character.name} from {self.movie.name} ({self.character_movie_id})"
         )

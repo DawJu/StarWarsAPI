@@ -5,13 +5,13 @@ from StarWars.models import Character, CharacterMovie, Movie
 
 class CharacterService:
     @staticmethod
-    def create_character(name, gender, age, species=None):
+    def create_character(name: str, gender: str, age: int, species: str | None = None) -> Character:
         character = Character(name=name, species=species, gender=gender, age=age)
         character.save()
         return character
 
     @staticmethod
-    def update_character(id, **kwargs):
+    def update_character(id: int, **kwargs) -> Character:
         character = Character.objects.get(pk=id)
         if "name" in kwargs:
             character.name = kwargs["name"]
@@ -25,20 +25,20 @@ class CharacterService:
         return character
 
     @staticmethod
-    def delete_character(id):
+    def delete_character(id: int) -> None:
         character = Character.objects.get(pk=id)
         character.delete()
 
 
 class MovieService:
     @staticmethod
-    def create_movie(name, episode=None, release_year=None):
+    def create_movie(name: str, episode: int | None = None, release_year: int | None = None) -> Movie:
         movie = Movie(name=name, episode=episode, release_year=release_year)
         movie.save()
         return movie
 
     @staticmethod
-    def update_movie(id, **kwargs):
+    def update_movie(id: int, **kwargs) -> Movie:
         movie = Movie.objects.get(pk=id)
         if "name" in kwargs:
             movie.name = kwargs["name"]
@@ -50,14 +50,14 @@ class MovieService:
         return movie
 
     @staticmethod
-    def delete_movie(id):
+    def delete_movie(id: int) -> None:
         movie = Movie.objects.get(pk=id)
         movie.delete()
 
 
 class CharacterMovieService:
     @staticmethod
-    def create_character_movie(**kwargs):
+    def create_character_movie(**kwargs) -> CharacterMovie:
         if "character_name" not in kwargs and "character_id" not in kwargs:
             return None
         if (
@@ -85,6 +85,6 @@ class CharacterMovieService:
         return character_movie
 
     @staticmethod
-    def delete_character_movie(id):
+    def delete_character_movie(id: int) -> None:
         character_movie = CharacterMovie.objects.get(pk=id)
         character_movie.delete()
