@@ -1,3 +1,5 @@
+from graphql_relay.node.node import from_global_id
+
 from StarWars.models import Character, Movie, CharacterMovie
 
 
@@ -55,11 +57,26 @@ class MovieService:
 
 class CharacterMovieService:
     @staticmethod
-    def create_character_movie(character_id, movie_id):
-        character_movie = CharacterMovie(
-            character=Character.objects.get(pk=character_id),
-            movie=Movie.objects.get(pk=movie_id)
-        )
+    def create_character_movie(**kwargs):
+        if "character_name" not in kwargs and "character_id" not in kwargs:
+            return None
+        if "movie_name" not in kwargs and "movie_episode" not in kwargs and "movie_id" not in kwargs:
+            return None
+        if "character_name" in kwargs:
+            character = Character.objects.get(name__iexact=kwargs["character_name"])
+        else:
+            character_id = from_global_id("character_id")[1]
+            character = Character.objects.get(pk=character_id)
+        if "movie_name" in kwargs:
+            movie = Movie.objects.get(name__iexact=kwargs["movie_name"])
+        elif "movie_episode" in kwargs:
+            movie = Movie.objects.get(episode=kwargs["movie_episode"])
+        else:
+            movie_id = from_global_id("movie_id")[1]
+            movie = Movie.objects.get(pk=movie_id)
+        if CharacterMovie.objects.filter(character=character, movie=movie).exists():
+            return None
+        character_movie = CharacterMovie(character=character, movie=movie)
         character_movie.save()
         return character_movie
 

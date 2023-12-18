@@ -5,7 +5,7 @@ from django.db import models
 
 class Character(models.Model):
     character_id = models.AutoField(primary_key=True)
-    name = models.TextField(max_length=50, verbose_name="Name")
+    name = models.TextField(max_length=50, unique=True, verbose_name="Name")
     species = models.TextField(max_length=15, null=True, verbose_name="Species")
 
     class Gender(models.TextChoices):
@@ -28,8 +28,8 @@ class Character(models.Model):
 
 class Movie(models.Model):
     movie_id = models.AutoField(primary_key=True)
-    name = models.TextField(max_length=100, verbose_name="Name")
-    episode = models.IntegerField(null=True, verbose_name="Episode")
+    name = models.TextField(max_length=100, unique=True, verbose_name="Name")
+    episode = models.IntegerField(null=True, unique=True, verbose_name="Episode")
     release_year = models.IntegerField(null=True, verbose_name="Release Year")
 
     class Meta:
@@ -45,12 +45,14 @@ class CharacterMovie(models.Model):
     character = models.ForeignKey(Character,
                                   on_delete=models.CASCADE,
                                   related_name="characters",
-                                  related_query_name="character"
+                                  related_query_name="character",
+                                  verbose_name="Character"
                                   )
     movie = models.ForeignKey(Movie,
                               on_delete=models.CASCADE,
                               related_name="movies",
-                              related_query_name="movie"
+                              related_query_name="movie",
+                              verbose_name="Movie"
                               )
 
     class Meta:

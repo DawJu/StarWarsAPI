@@ -87,13 +87,14 @@ class CreateCharacterMovie(graphene.Mutation):
     character_movie = graphene.Field(CharacterMovieNode)
 
     class Arguments:
-        character_id = graphene.ID(required=True)
-        movie_id = graphene.ID(required=True)
+        character_name = graphene.String()
+        character_id = graphene.ID()
+        movie_name = graphene.String()
+        movie_episode = graphene.Int()
+        movie_id = graphene.ID()
 
-    def mutate(self, info, character_id, movie_id):
-        character_movie = CharacterMovieService().create_character_movie(
-            from_global_id(character_id)[1], from_global_id(movie_id)[1]
-        )
+    def mutate(self, info, **kwargs):
+        character_movie = CharacterMovieService().create_character_movie(**kwargs)
         return CreateCharacterMovie(character_movie=character_movie)
 
 
