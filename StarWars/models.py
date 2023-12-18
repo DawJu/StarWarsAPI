@@ -29,8 +29,8 @@ class Character(models.Model):
 class Movie(models.Model):
     movie_id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=100, verbose_name="Name")
-    episode = models.IntegerField(verbose_name="Episode")
-    release_year = models.IntegerField(verbose_name="Release Year")
+    episode = models.IntegerField(null=True, verbose_name="Episode")
+    release_year = models.IntegerField(null=True, verbose_name="Release Year")
 
     class Meta:
         verbose_name = "Movie"

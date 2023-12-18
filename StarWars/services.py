@@ -1,4 +1,4 @@
-from StarWars.models import Character
+from StarWars.models import Character, Movie
 
 
 class CharacterService:
@@ -11,14 +11,14 @@ class CharacterService:
     @staticmethod
     def update_character(id, **kwargs):
         character = Character.objects.get(pk=id)
-        if 'name' in kwargs:
-            character.name = kwargs['name']
-        if 'species' in kwargs:
-            character.species = kwargs['species']
-        if 'gender' in kwargs:
-            character.gender = kwargs['gender']
-        if 'age' in kwargs:
-            character.age = kwargs['age']
+        if "name" in kwargs:
+            character.name = kwargs["name"]
+        if "species" in kwargs:
+            character.species = kwargs["species"]
+        if "gender" in kwargs:
+            character.gender = kwargs["gender"]
+        if "age" in kwargs:
+            character.age = kwargs["age"]
         character.save()
         return character
 
@@ -26,3 +26,28 @@ class CharacterService:
     def delete_character(id):
         character = Character.objects.get(pk=id)
         character.delete()
+
+
+class MovieService:
+    @staticmethod
+    def create_movie(name, episode=None, release_year=None):
+        movie = Movie(name=name, episode=episode, release_year=release_year)
+        movie.save()
+        return movie
+
+    @staticmethod
+    def update_movie(id, **kwargs):
+        movie = Movie.objects.get(pk=id)
+        if "name" in kwargs:
+            movie.name = kwargs["name"]
+        if "episode" in kwargs:
+            movie.episode = kwargs["episode"]
+        if "release_year" in kwargs:
+            movie.release_year = kwargs["release_year"]
+        movie.save()
+        return movie
+
+    @staticmethod
+    def delete_movie(id):
+        movie = Movie.objects.get(pk=id)
+        movie.delete()

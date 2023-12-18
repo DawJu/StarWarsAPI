@@ -1,8 +1,8 @@
 import graphene
 from graphql_relay.node.node import from_global_id
 
-from StarWars.GraphQL.model_nodes import CharacterNode
-from StarWars.services import CharacterService
+from StarWars.GraphQL.model_nodes import CharacterNode, MovieNode
+from StarWars.services import CharacterService, MovieService
 
 
 class CreateCharacter(graphene.Mutation):
@@ -45,7 +45,49 @@ class DeleteCharacter(graphene.Mutation):
         return DeleteCharacter(id=id)
 
 
+class CreateMovie(graphene.Mutation):
+    movie = graphene.Field(MovieNode)
+
+    class Arguments:
+        name = graphene.String(required=True)
+        episode = graphene.Int()
+        release_year = graphene.Int()
+
+    def mutate(self, info, name, episode=None, release_year=None):
+        movie = MovieService().create_movie(name, episode, release_year)
+        return CreateMovie(movie=movie)
+
+
+class UpdateMovie(graphene.Mutation):
+    movie = graphene.Field(MovieNode)
+
+    class Arguments:
+        id = graphene.ID(required=True)
+        name = graphene.String()
+        episode = graphene.Int()
+        release_year = graphene.Int()
+
+    def mutate(self, info, id, **kwargs):
+        movie = MovieService().update_movie(from_global_id(id)[1], **kwargs)
+        return UpdateMovie(movie=movie)
+
+
+class DeleteMovie(graphene.Mutation):
+    id = graphene.ID()
+
+    class Arguments:
+        id = graphene.ID(required=True)
+
+    def mutate(self, info, id):
+        MovieService().delete_movie(from_global_id(id)[1])
+        return DeleteMovie(id=id)
+
+
 class Mutation(graphene.ObjectType):
     create_character = CreateCharacter.Field()
     update_character = UpdateCharacter.Field()
     delete_character = DeleteCharacter.Field()
+
+    create_movie = CreateMovie.Field()
+    update_movie = UpdateMovie.Field()
+    delete_movie = DeleteMovie.Field()
