@@ -1,4 +1,4 @@
-from StarWars.models import Character, Movie
+from StarWars.models import Character, Movie, CharacterMovie
 
 
 class CharacterService:
@@ -51,3 +51,19 @@ class MovieService:
     def delete_movie(id):
         movie = Movie.objects.get(pk=id)
         movie.delete()
+
+
+class CharacterMovieService:
+    @staticmethod
+    def create_character_movie(character_id, movie_id):
+        character_movie = CharacterMovie(
+            character=Character.objects.get(pk=character_id),
+            movie=Movie.objects.get(pk=movie_id)
+        )
+        character_movie.save()
+        return character_movie
+
+    @staticmethod
+    def delete_character_movie(id):
+        character_movie = CharacterMovie.objects.get(pk=id)
+        character_movie.delete()

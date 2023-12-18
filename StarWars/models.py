@@ -45,11 +45,13 @@ class CharacterMovie(models.Model):
     character = models.ForeignKey(Character,
                                   on_delete=models.CASCADE,
                                   related_name="characters",
-                                  related_query_name="character")
+                                  related_query_name="character"
+                                  )
     movie = models.ForeignKey(Movie,
                               on_delete=models.CASCADE,
                               related_name="movies",
-                              related_query_name="movie")
+                              related_query_name="movie"
+                              )
 
     class Meta:
         verbose_name = "Character + Movie"
