@@ -8,8 +8,12 @@ from StarWars.models import CharacterMovie
 
 
 class CharacterMovieFilter(django_filters.FilterSet):
-    character_name = django_filters.CharFilter(field_name="character__name", lookup_expr="icontains")
-    movie_name = django_filters.CharFilter(field_name="movie__name", lookup_expr="icontains")
+    character_name = django_filters.CharFilter(
+        field_name="character__name", lookup_expr="icontains"
+    )
+    movie_name = django_filters.CharFilter(
+        field_name="movie__name", lookup_expr="icontains"
+    )
     movie_episode = django_filters.NumberFilter(field_name="movie__episode")
 
     class Meta:

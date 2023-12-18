@@ -42,22 +42,26 @@ class Movie(models.Model):
 
 class CharacterMovie(models.Model):
     character_movie_id = models.AutoField(primary_key=True)
-    character = models.ForeignKey(Character,
-                                  on_delete=models.CASCADE,
-                                  related_name="characters",
-                                  related_query_name="character",
-                                  verbose_name="Character"
-                                  )
-    movie = models.ForeignKey(Movie,
-                              on_delete=models.CASCADE,
-                              related_name="movies",
-                              related_query_name="movie",
-                              verbose_name="Movie"
-                              )
+    character = models.ForeignKey(
+        Character,
+        on_delete=models.CASCADE,
+        related_name="characters",
+        related_query_name="character",
+        verbose_name="Character",
+    )
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+        related_name="movies",
+        related_query_name="movie",
+        verbose_name="Movie",
+    )
 
     class Meta:
         verbose_name = "Character + Movie"
         verbose_name_plural = "Characters + Movies"
 
     def __str__(self):
-        return f"{self.character.name} from {self.movie.name} ({self.character_movie_id})"
+        return (
+            f"{self.character.name} from {self.movie.name} ({self.character_movie_id})"
+        )

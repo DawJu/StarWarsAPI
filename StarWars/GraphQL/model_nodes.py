@@ -11,7 +11,7 @@ class CharacterNode(DjangoObjectType):
             "name": ["exact", "istartswith", "icontains"],
             "species": ["exact", "istartswith", "icontains"],
             "gender": ["exact", "istartswith", "icontains"],
-            "age": ["exact"]
+            "age": ["exact"],
         }
         interfaces = (graphene.relay.Node,)
 
@@ -22,7 +22,7 @@ class MovieNode(DjangoObjectType):
         filter_fields = {
             "name": ["exact", "istartswith", "icontains"],
             "episode": ["exact"],
-            "release_year": ["exact"]
+            "release_year": ["exact"],
         }
         interfaces = (graphene.relay.Node,)
 

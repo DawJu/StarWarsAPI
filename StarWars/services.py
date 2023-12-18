@@ -60,7 +60,11 @@ class CharacterMovieService:
     def create_character_movie(**kwargs):
         if "character_name" not in kwargs and "character_id" not in kwargs:
             return None
-        if "movie_name" not in kwargs and "movie_episode" not in kwargs and "movie_id" not in kwargs:
+        if (
+            "movie_name" not in kwargs
+            and "movie_episode" not in kwargs
+            and "movie_id" not in kwargs
+        ):
             return None
         if "character_name" in kwargs:
             character = Character.objects.get(name__iexact=kwargs["character_name"])
