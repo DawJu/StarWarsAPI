@@ -1,6 +1,7 @@
 import django_filters
 import graphene
-from graphene_django.filter.fields import DjangoFilterConnectionField
+from graphene_django.filter.fields import \
+    DjangoFilterConnectionField  # type: ignore
 
 import StarWars.GraphQL.mutations
 from StarWars.GraphQL.model_nodes import (CharacterMovieNode, CharacterNode,

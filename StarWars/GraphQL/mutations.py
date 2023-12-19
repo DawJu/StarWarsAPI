@@ -16,7 +16,9 @@ class CreateCharacter(graphene.Mutation):
         gender = graphene.String(required=True)
         age = graphene.Int(required=True)
 
-    def mutate(self, info, name: str, gender: str, age: int, species: str | None = None) -> "CreateCharacter":
+    def mutate(
+        self, info, name: str, gender: str, age: int, species: str | None = None
+    ) -> "CreateCharacter":
         character = CharacterService().create_character(name, gender, age, species)
         return CreateCharacter(character=character)
 
@@ -31,7 +33,7 @@ class UpdateCharacter(graphene.Mutation):
         gender = graphene.String()
         age = graphene.Int()
 
-    def mutate(self, info, id: int, **kwargs) -> "UpdateCharacter":
+    def mutate(self, info, id: str, **kwargs) -> "UpdateCharacter":
         character = CharacterService().update_character(from_global_id(id)[1], **kwargs)
         return UpdateCharacter(character=character)
 
@@ -42,7 +44,7 @@ class DeleteCharacter(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
-    def mutate(self, info, id: int) -> "DeleteCharacter":
+    def mutate(self, info, id: str) -> "DeleteCharacter":
         CharacterService().delete_character(from_global_id(id)[1])
         return DeleteCharacter(id=id)
 
@@ -55,7 +57,13 @@ class CreateMovie(graphene.Mutation):
         episode = graphene.Int()
         release_year = graphene.Int()
 
-    def mutate(self, info, name: str, episode: int | None = None, release_year: int | None = None) -> "CreateMovie":
+    def mutate(
+        self,
+        info,
+        name: str,
+        episode: int | None = None,
+        release_year: int | None = None,
+    ) -> "CreateMovie":
         movie = MovieService().create_movie(name, episode, release_year)
         return CreateMovie(movie=movie)
 
@@ -69,7 +77,7 @@ class UpdateMovie(graphene.Mutation):
         episode = graphene.Int()
         release_year = graphene.Int()
 
-    def mutate(self, info, id: int, **kwargs) -> "UpdateMovie":
+    def mutate(self, info, id: str, **kwargs) -> "UpdateMovie":
         movie = MovieService().update_movie(from_global_id(id)[1], **kwargs)
         return UpdateMovie(movie=movie)
 
@@ -80,7 +88,7 @@ class DeleteMovie(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
-    def mutate(self, info, id: int) -> "DeleteMovie":
+    def mutate(self, info, id: str) -> "DeleteMovie":
         MovieService().delete_movie(from_global_id(id)[1])
         return DeleteMovie(id=id)
 
@@ -106,7 +114,7 @@ class DeleteCharacterMovie(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
-    def mutate(self, info, id: int) -> "DeleteCharacterMovie":
+    def mutate(self, info, id: str) -> "DeleteCharacterMovie":
         CharacterMovieService().delete_character_movie(from_global_id(id)[1])
         return DeleteCharacterMovie(id=id)
 

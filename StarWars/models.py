@@ -1,22 +1,24 @@
 from django.db import models
+from django.db.models import (AutoField, ForeignKey, IntegerField, TextChoices,
+                              TextField)
 
 # Create your models here.
 
 
 class Character(models.Model):
-    character_id = models.AutoField(primary_key=True)
-    name = models.TextField(max_length=50, unique=True, verbose_name="Name")
-    species = models.TextField(max_length=15, null=True, verbose_name="Species")
+    character_id: AutoField = AutoField(primary_key=True)
+    name: TextField = TextField(max_length=50, unique=True, verbose_name="Name")
+    species: TextField = TextField(max_length=15, null=True, verbose_name="Species")
 
-    class Gender(models.TextChoices):
+    class Gender(TextChoices):
         Male = "Male"
         Female = "Female"
         Other = "Other"
 
-    gender = models.TextField(
+    gender: TextField = TextField(
         max_length=6, choices=Gender.choices, verbose_name="Gender"
     )
-    age = models.IntegerField(verbose_name="Age")
+    age: IntegerField = IntegerField(verbose_name="Age")
 
     class Meta:
         verbose_name = "Character"
@@ -27,10 +29,10 @@ class Character(models.Model):
 
 
 class Movie(models.Model):
-    movie_id = models.AutoField(primary_key=True)
-    name = models.TextField(max_length=100, unique=True, verbose_name="Name")
-    episode = models.IntegerField(null=True, unique=True, verbose_name="Episode")
-    release_year = models.IntegerField(null=True, verbose_name="Release Year")
+    movie_id: AutoField = AutoField(primary_key=True)
+    name: TextField = TextField(max_length=100, unique=True, verbose_name="Name")
+    episode: IntegerField = IntegerField(null=True, unique=True, verbose_name="Episode")
+    release_year: IntegerField = IntegerField(null=True, verbose_name="Release Year")
 
     class Meta:
         verbose_name = "Movie"
@@ -41,15 +43,15 @@ class Movie(models.Model):
 
 
 class CharacterMovie(models.Model):
-    character_movie_id = models.AutoField(primary_key=True)
-    character = models.ForeignKey(
+    character_movie_id: AutoField = AutoField(primary_key=True)
+    character: ForeignKey = ForeignKey(
         Character,
         on_delete=models.CASCADE,
         related_name="characters",
         related_query_name="character",
         verbose_name="Character",
     )
-    movie = models.ForeignKey(
+    movie: ForeignKey = ForeignKey(
         Movie,
         on_delete=models.CASCADE,
         related_name="movies",

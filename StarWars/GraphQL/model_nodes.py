@@ -1,5 +1,5 @@
 import graphene
-from graphene_django import DjangoObjectType
+from graphene_django import DjangoObjectType  # type: ignore
 
 from StarWars.models import Character, CharacterMovie, Movie
 
