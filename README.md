@@ -1,5 +1,6 @@
 This is a simple API that lets you do the basic CRUD operations using GraphQL.
-The attached database file contains sample data of some Star Wars characters.
+The attached database file contains sample data of some Star Wars characters and movies.
+The app has 3 models: Character, Movie and CharacterMovie (stores information of a character being in a movie).
 
 Main technologies used:
 - Python 3.12
@@ -16,11 +17,11 @@ To run this project:
 
 Example queries:
 ````
-query readAll {
+query allChar {
   characters {
     edges {
       node {
-        characterId
+        id
         name
         species
         gender
@@ -32,10 +33,10 @@ query readAll {
 ````
 ````
 query helloThere {
-  characters(name: "Obi-Wan Kenobi") {
+  characters(name_Icontains: "kenobi") {
     edges {
       node {
-        characterId
+        id
         name
         species
         gender
@@ -46,15 +47,31 @@ query helloThere {
 }
 ````
 ````
-query filter {
-  characters(age: 32, gender: OTHER) {
+query allMov {
+  movies {
     edges {
       node {
-        characterId
+        id
         name
-        species
-        gender
-        age
+        episode
+        releaseYear
+      }
+    }
+  }
+}
+````
+````
+query filterCharMov {
+  characterMovies(movieName: "empire") {
+    edges {
+      node {
+        id
+        character {
+          name
+        }
+        movie {
+          name
+        }
       }
     }
   }
@@ -62,10 +79,10 @@ query filter {
 ````
 Example mutations:
 ````
-mutation create {
-  createCharacter(name: "test", species: "test", gender: "Male", age: 200) {
+mutation createChar {
+  createCharacter(name: "test", gender: "Male", age: 40) {
     character {
-      characterId
+      id
       name
       species
       gender
@@ -75,22 +92,21 @@ mutation create {
 }
 ````
 ````
-mutation update {
-  updateCharacter(characterId: 16, name: "updated name", age: 68) {
-    character {
-      characterId
+mutation updateMov {
+  updateMovie(id: "TW92aWVOb2RlOjM=", releaseYear: 2024) {
+    movie {
+      id
       name
-      species
-      gender
-      age
+      episode
+      releaseYear
     }
   }
 }
 ````
 ````
-mutation delete {
-  deleteCharacter(characterId: 16) {
-    characterId
+mutation deleteCharMov {
+  deleteCharacterMovie(id: "Q2hhcmFjdGVyTW92aWVOb2RlOjU=") {
+    id
   }
 }
 ````
